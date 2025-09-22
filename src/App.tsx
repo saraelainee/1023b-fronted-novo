@@ -10,7 +10,6 @@ type ProdutoType = {
   descricao: string
 }
 
-
 function App() {
   const [produtos, setProdutos] = useState<ProdutoType[]>([])
   useEffect(() => {
@@ -19,6 +18,8 @@ function App() {
       .then((data) => setProdutos(data))
       .catch((error) => console.error('Erro ao buscar produtos:', error));
   }, [])
+
+//Função do form
   function handleForm(event: React.FormEvent<HTMLFormElement>){
     event.preventDefault()
     const form = event.currentTarget
@@ -37,12 +38,24 @@ function App() {
       body: JSON.stringify(data)
     })
     .then((response) => response.json())
-    .then((newProduct) => setProdutos([...produtos, newProduct]))
+    .then((newProduto) => setProdutos([...produtos, newProduto]))
     .catch((error) => console.error('Erro ao cadastrar produto:', error));
     form.reset()
   }
+
+//Função do carrinhoooooooooo
+  function adicionarCarrinho(produtoId:string) {
+    const clienteId = "12345"
+    fetch('/api/carrinho', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ produtoId, clienteId })
+    })
+  }
   
-  return(
+  return (
     <>
     <div>Cadastro de Produtos</div>
     <form onSubmit={handleForm}>
@@ -61,6 +74,7 @@ function App() {
         <p>{produtos.preco}</p>
         <img src={produtos.urlfoto} alt={produtos.nome} width="200" />
         <p>{produtos.descricao}</p>
+        <button onClick={()=>adicionarCarrinho(produtos._id)}>Adicionar ao carrinho</button>
       </div>
     ))}
     </>
