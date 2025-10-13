@@ -1,4 +1,5 @@
 import './App.css'
+import api from './api/api'
 //Useffect
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -9,18 +10,15 @@ type ProdutoType = {
   urlfoto: string,
   descricao: string
 }
+
 function App() {
   const [produtos, setProdutos] = useState<ProdutoType[]>([])
  useEffect(() => {
-  fetch('/api/produtos', {
-    headers:{
-      'Authorization': 'Bearer'
-    }
-  })
-    .then((response) => response.json())
-    .then((data) => setProdutos(data))
-    .catch((error) => console.error(error.message));
+  api.get('/produtos')
+    .then((response) => setProdutos(response.data)) 
+    .catch((error) => console.error('Error fetching data:',error));
 }, []);
+
 
 //Função do form
   function handleForm(event: React.FormEvent<HTMLFormElement>){
