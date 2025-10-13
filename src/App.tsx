@@ -9,24 +9,18 @@ type ProdutoType = {
   urlfoto: string,
   descricao: string
 }
-
 function App() {
   const [produtos, setProdutos] = useState<ProdutoType[]>([])
  useEffect(() => {
-  fetch('/api/produtos')
-    .then((response) => {
-      if (!response.ok) {
-        // Se a resposta não for OK, tenta ler como texto
-        return response.text().then(text => {
-          throw new Error(`Erro ao buscar produtos: ${text}`);
-        });
-      }
-      return response.json();
-    })
+  fetch('/api/produtos', {
+    headers:{
+      'Authorization': 'Bearer'
+    }
+  })
+    .then((response) => response.json())
     .then((data) => setProdutos(data))
     .catch((error) => console.error(error.message));
 }, []);
-
 
 //Função do form
   function handleForm(event: React.FormEvent<HTMLFormElement>){
