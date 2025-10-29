@@ -3,7 +3,7 @@ import axios from 'axios'
 const api = axios.create({
     baseURL:import.meta.env.VITE_API_URL
 })
-//Nós vamos criar um middleware para adicionar o token na requisição
+//middleware para adicionar o token na requisição
 
 api.interceptors.request.use((config) =>{
     const token = localStorage.getItem("token")

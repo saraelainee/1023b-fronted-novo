@@ -1,4 +1,3 @@
-// ARQUIVO: src/componentes/admin/GerenciarUsuarios.tsx (NOVO)
 import { useState, useEffect } from 'react';
 import api from '../../api/api';
 
@@ -20,7 +19,7 @@ function GerenciarUsuarios() {
             .then(res => {
                 setUsuarios(res.data.data); // O controller do backend encapsula em 'data'
             })
-            .catch(err => alert("Erro ao buscar usuários."));
+            .catch(err => alert(`Erro ao buscar usuários. ${err}`));
     }
 
     // Busca os usuários ao carregar
@@ -36,7 +35,7 @@ function GerenciarUsuarios() {
                     alert("Usuário excluído com sucesso!");
                     fetchUsuarios(); // Atualiza a lista
                 })
-                .catch(err => alert("Erro ao excluir usuário."));
+                .catch(err => alert(`Erro ao excluir usuário. ${err}`));
         }
     }
 

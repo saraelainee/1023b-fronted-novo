@@ -1,4 +1,3 @@
-// ARQUIVO: src/componentes/admin/GerenciarCarrinhos.tsx (NOVO)
 import { useState, useEffect } from 'react';
 import api from '../../api/api';
 
@@ -24,7 +23,7 @@ function GerenciarCarrinhos() {
             .then(res => {
                 setCarrinhos(res.data.data); // O backend retorna { success: true, data: [...] }
             })
-            .catch(err => alert("Erro ao buscar carrinhos."));
+            .catch(err => alert(`Erro ao buscar carrinhos. ${err}`));
     }
 
     // Busca os carrinhos ao carregar
@@ -41,7 +40,7 @@ function GerenciarCarrinhos() {
                     alert("Carrinho excluído com sucesso!");
                     fetchCarrinhos(); // Atualiza a lista
                 })
-                .catch(err => alert("Erro ao excluir carrinho."));
+                .catch(err => alert(`Erro ao excluir carrinho. ${err}`));
         }
     }
 

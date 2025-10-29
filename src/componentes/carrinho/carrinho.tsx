@@ -1,4 +1,3 @@
-// ARQUIVO: src/componentes/carrinho/carrinho.tsx (MODIFICADO)
 import { useState, useEffect } from "react";
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
@@ -20,14 +19,14 @@ type CarrinhoType = {
 function Carrinho() {
     const navigate = useNavigate();
     // Estado para guardar o carrinho
-    const [carrinho, setCarrinho] = useState<CarrinhoType | null>(null);
+    let carrinho:CarrinhoType | null = useState<CarrinhoType | null>(null)[0];
 
     // Função para buscar os dados do carrinho na API
     function fetchCarrinho() {
         api.get('/carrinho')
             .then(response => {
                 // O backend (controller) retorna { success: true, data: ... }
-                setCarrinho(response.data.data); 
+                carrinho = response.data.data; 
             })
             .catch(error => {
                 console.error("Erro ao buscar carrinho:", error);
@@ -97,7 +96,7 @@ function Carrinho() {
         api.delete('/carrinho')
         .then(() => {
             alert("Carrinho excluído com sucesso!");
-            setCarrinho(null); // Limpa o estado local
+            carrinho= null; // Limpa o estado local
             navigate("/"); // Volta para a home
         })
         .catch(error => {

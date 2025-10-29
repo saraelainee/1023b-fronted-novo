@@ -1,13 +1,12 @@
-// ARQUIVO: src/componentes/admin/GerenciarProdutos.tsx (NOVO)
 import { useState, useEffect, type FormEvent } from 'react';
 import api from '../../api/api';
 
 type ProdutoType = {
   _id: string,
-  nome: string,
-  preco: number,
-  urlfoto: string,
-  descricao: string,
+  nome: string, 
+  preco: number, 
+  urlfoto: string, 
+  descricao: string, 
   categoria: string;
 }
 
@@ -33,7 +32,7 @@ function GerenciarProdutos() {
     function fetchProdutos() {
         api.get('/produtos') // Busca pública
             .then(res => setProdutos(res.data))
-            .catch(err => alert("Erro ao buscar produtos."));
+            .catch(err => alert(`Erro ao buscar produtos. ${err}`));
     }
 
     // Busca produtos ao carregar o componente
@@ -99,7 +98,7 @@ function GerenciarProdutos() {
                     alert("Produto excluído com sucesso!");
                     fetchProdutos(); // Atualiza a lista
                 })
-                .catch(err => alert("Erro ao excluir produto."));
+                .catch(err => alert(`Erro ao excluir produto. ${err}`));
         }
     }
 

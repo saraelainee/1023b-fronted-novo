@@ -1,16 +1,16 @@
-// ARQUIVO: src/main.tsx (FRONTEND)
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.tsx' // Nosso Layout principal
+import App from './App.tsx' // Layout principal
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-// Importando todas as nossas páginas
+// Importando todas as  páginas
 import Login from './componentes/login/login.tsx'
 import Erro from './componentes/erro/erro.tsx'
 import Produtos from './componentes/produtos/Produtos.tsx' 
 import Carrinho from './componentes/carrinho/carrinho.tsx' 
 import Admin from './componentes/admin/Admin.tsx'       
+import Registrar from './componentes/login/registrar.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -27,6 +27,7 @@ createRoot(document.getElementById('root')!).render(
         */}
         <Route element={<App />}>
           <Route path="/" element={<Produtos />} />
+          <Route path='/registro' element={<Registrar />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/admin" element={<Admin />} />
         </Route>

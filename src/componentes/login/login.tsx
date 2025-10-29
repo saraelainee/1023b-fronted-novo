@@ -1,4 +1,3 @@
-// ARQUIVO: src/componentes/login/login.tsx (MODIFICADO)
 import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../api/api";
 import { jwtDecode } from "jwt-decode"; // TAREFA VÂNIA: Importa o decoder
@@ -8,14 +7,14 @@ interface DecodedToken {
     usuarioId: string;
     role: string;
     nome: string;
-    // (outros campos como 'iat', 'exp'...)
+    // (outros campos como 'iat', 'exp'...)?????
 }
 
 function Login() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     
-    // TAREFA SARA: Exibe mensagens amigáveis (esta parte já existia)
+    // TAREFA SARA: Exibe mensagens amigáveis BLA BLA BLA
     const mensagem = searchParams.get("mensagem")
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -31,7 +30,7 @@ function Login() {
             if (resposta.status === 200) {
                 const token = resposta?.data?.token;
 
-                // --- INÍCIO DA TAREFA DA VÂNIA ---
+                // --- INICIO DA TAREFA DA VÂNIA ---
                 localStorage.setItem("token", token); // 1. Armazena o Token
 
                 // 2. Decodifica o token para pegar as infos
@@ -46,7 +45,7 @@ function Login() {
                 navigate("/"); 
             }
         }).catch((error: any) => {
-            // TAREFA SARA: Mensagem amigável de erro de login
+            // TAREFA SARA: Mensagem amigável de erro de login BLA BLA BLA
             const msg = error?.response?.data?.mensagem ||
                 error?.response?.data?.error || // Pega o 'error' também
                 error?.message ||
