@@ -11,10 +11,10 @@ function Registrar() {
 
     const response = api.post(
         "./adicionarUsuario", {
-        nome,
-        email,
-        idade,
-        senha
+        //nome,
+        //email,
+        //idade,
+        //senha
     }
     )
         .then(resposta => {

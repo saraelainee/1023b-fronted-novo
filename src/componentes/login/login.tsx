@@ -1,50 +1,76 @@
+// ARQUIVO: src/componentes/login/login.tsx (MODIFICADO)
 import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../api/api";
-function Login(){
+import { jwtDecode } from "jwt-decode"; // TAREFA VÂNIA: Importa o decoder
+
+// Define a estrutura esperada do nosso Token
+interface DecodedToken {
+    usuarioId: string;
+    role: string;
+    nome: string;
+    // (outros campos como 'iat', 'exp'...)
+}
+
+function Login() {
     const navigate = useNavigate()
-    //url   localhost:5123/login?mensagem=Token Inválido
-    //para pegar a mensagem passada pela url usamos o useSearchParams()
     const [searchParams] = useSearchParams()
-    //Dentro do searchParans eu consigo utilizar o get para pegar 
-    // o valor da variável passada pela URL
+    
+    // TAREFA SARA: Exibe mensagens amigáveis (esta parte já existia)
     const mensagem = searchParams.get("mensagem")
 
-    //Função chamada quando clicamos no botão do formulário
-    function handleSubmit(event:React.FormEvent<HTMLFormElement>){
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        //Vamos pegar o que a pessoa digitou no formulário
         const formData = new FormData(event.currentTarget)
         const email = formData.get("email")
         const senha = formData.get("senha")
 
-        //chamar a API.post para mandar o login e senha
-        api.post("/login",{
+        api.post("/login", {
             email,
             senha
-        }).then(resposta=>{
-            if(resposta.status===200){
-                localStorage.setItem("token",resposta?.data?.token)
-                navigate("/")
+        }).then(resposta => {
+            if (resposta.status === 200) {
+                const token = resposta?.data?.token;
+
+                // --- INÍCIO DA TAREFA DA VÂNIA ---
+                localStorage.setItem("token", token); // 1. Armazena o Token
+
+                // 2. Decodifica o token para pegar as infos
+                const decoded = jwtDecode<DecodedToken>(token);
+
+                // 3. Armazena o tipo e o nome no localStorage
+                localStorage.setItem("tipoUsuario", decoded.role); 
+                localStorage.setItem("nomeUsuario", decoded.nome);
+                // --- FIM DA TAREFA DA VÂNIA ---
+
+                // Redireciona para a página principal
+                navigate("/"); 
             }
-        }).catch((error:any)=>{
-            const msg = error?.response?.data?.mensagem || 
-                        error?.mensagem || 
-                        "Erro Desconhecido!"
+        }).catch((error: any) => {
+            // TAREFA SARA: Mensagem amigável de erro de login
+            const msg = error?.response?.data?.mensagem ||
+                error?.response?.data?.error || // Pega o 'error' também
+                error?.message ||
+                "Erro Desconhecido!"
             navigate(`/login?mensagem=${encodeURIComponent(msg)}`)
         })
     }
 
 
-    return(
-    <>
-    <h1>Login</h1>
-    {mensagem&&<p>{mensagem}</p>}
-    <form onSubmit={handleSubmit}>
-        <input type="text" name="email" id="email" />
-        <input type="password" name="senha" id="senha" />
-        <button type="submit">Entrar</button>
-    </form>
-    </>
+    return (
+        <>
+            <h1>Login</h1>
+            {/* TAREFA SARA: Exibe a mensagem de erro */}
+            {mensagem && <p style={{ color: 'red' }}>{mensagem}</p>}
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="email">Email:</label>
+                <input type="text" name="email" id="email" />
+                <br/>
+                <label htmlFor="senha">Senha:</label>
+                <input type="password" name="senha" id="senha" />
+                <br/>
+                <button type="submit">Entrar</button>
+            </form>
+        </>
     )
 }
 export default Login;
