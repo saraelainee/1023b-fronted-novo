@@ -103,60 +103,120 @@ function GerenciarProdutos() {
     }
 
     return (
-        <div>
-            <h3>{produtoEditando ? 'Editando Produto' : 'Cadastrar Novo Produto'}</h3>
-            
-            {/* TAREFA LAÍSA: Formulário de Cadastro/Edição */}
-            <form onSubmit={handleSubmit} style={formStyle}>
-                <input name="nome" value={formData.nome} onChange={handleChange} placeholder="Nome" required />
-                <input name="categoria" value={formData.categoria} onChange={handleChange} placeholder="Categoria" required />
-                <input name="preco" value={formData.preco} onChange={handleChange} placeholder="Preço" type="number" step="0.01" required />
-                <input name="urlfoto" value={formData.urlfoto} onChange={handleChange} placeholder="URL da Foto" required />
-                <textarea name="descricao" value={formData.descricao} onChange={handleChange} placeholder="Descrição" required />
-                <button type="submit">{produtoEditando ? 'Salvar Alterações' : 'Cadastrar'}</button>
-                {/* Botão para cancelar edição */}
-                {produtoEditando && <button type="button" onClick={resetForm}>Cancelar Edição</button>}
-            </form>
-            
-            <hr style={{ margin: '20px 0' }} />
+        <div className="space-y-8">
+            {/* Seção do Formulário */}
+            <div className="bg-white rounded-lg shadow-sm border border-[#B99375]/10 p-6">
+                <h3 className="text-xl font-semibold text-[#344733] mb-4">
+                    {produtoEditando ? 'Editando Produto' : 'Cadastrar Novo Produto'}
+                </h3>
+                
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input
+                        name="nome"
+                        value={formData.nome}
+                        onChange={handleChange}
+                        placeholder="Nome do Produto"
+                        required
+                        className="px-4 py-2 border border-[#B99375]/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F] focus:border-transparent"
+                    />
+                    <input
+                        name="categoria"
+                        value={formData.categoria}
+                        onChange={handleChange}
+                        placeholder="Categoria"
+                        required
+                        className="px-4 py-2 border border-[#B99375]/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F] focus:border-transparent"
+                    />
+                    <input
+                        name="preco"
+                        value={formData.preco}
+                        onChange={handleChange}
+                        placeholder="Preço"
+                        type="number"
+                        step="0.01"
+                        required
+                        className="px-4 py-2 border border-[#B99375]/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F] focus:border-transparent"
+                    />
+                    <input
+                        name="urlfoto"
+                        value={formData.urlfoto}
+                        onChange={handleChange}
+                        placeholder="URL da Foto"
+                        required
+                        className="px-4 py-2 border border-[#B99375]/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F] focus:border-transparent"
+                    />
+                    <textarea
+                        name="descricao"
+                        value={formData.descricao}
+                        onChange={handleChange}
+                        placeholder="Descrição do Produto"
+                        required
+                        className="md:col-span-2 px-4 py-2 border border-[#B99375]/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F] focus:border-transparent h-24 resize-none"
+                    />
+                    <div className="md:col-span-2 flex gap-3">
+                        <button
+                            type="submit"
+                            className="flex-1 bg-gradient-to-r from-[#8A9B6F] to-[#B99375] text-white py-2 px-4 rounded-md hover:opacity-90 transition-all duration-200"
+                        >
+                            {produtoEditando ? 'Salvar Alterações' : 'Cadastrar Produto'}
+                        </button>
+                        {produtoEditando && (
+                            <button
+                                type="button"
+                                onClick={resetForm}
+                                className="px-4 py-2 border border-[#B99375] text-[#344733] rounded-md hover:bg-[#F3F4FD] transition-colors"
+                            >
+                                Cancelar Edição
+                            </button>
+                        )}
+                    </div>
+                </form>
+            </div>
 
-            <h3>Lista de Produtos Cadastrados</h3>
-            <table style={{ width: '100%' }}>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Categoria</th>
-                        <th>Preço</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {produtos.map(p => (
-                        <tr key={p._id}>
-                            <td>{p.nome}</td>
-                            <td>{p.categoria}</td>
-                            <td>R$ {p.preco.toFixed(2)}</td>
-                            <td>
-                                {/* TAREFA LAÍSA: Botão Editar */}
-                                <button onClick={() => handleEditar(p)}>Editar</button>
-                                
-                                {/* TAREFA VÂNIA: Botão Excluir */}
-                                <button onClick={() => handleExcluir(p._id)} style={{ marginLeft: '5px' }}>Excluir</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {/* Seção da Tabela */}
+            <div className="bg-white rounded-lg shadow-sm border border-[#B99375]/10 p-6">
+                <h3 className="text-xl font-semibold text-[#344733] mb-4">
+                    Lista de Produtos Cadastrados
+                </h3>
+                
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="border-b border-[#B99375]/10">
+                                <th className="text-left py-3 px-4 text-[#344733] font-semibold">Nome</th>
+                                <th className="text-left py-3 px-4 text-[#344733] font-semibold">Categoria</th>
+                                <th className="text-left py-3 px-4 text-[#344733] font-semibold">Preço</th>
+                                <th className="text-right py-3 px-4 text-[#344733] font-semibold">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {produtos.map(p => (
+                                <tr key={p._id} className="border-b border-[#B99375]/10 hover:bg-[#F3F4FD]/50 transition-colors">
+                                    <td className="py-3 px-4">{p.nome}</td>
+                                    <td className="py-3 px-4">{p.categoria}</td>
+                                    <td className="py-3 px-4">R$ {p.preco.toFixed(2)}</td>
+                                    <td className="py-3 px-4 text-right space-x-2">
+                                        <button
+                                            onClick={() => handleEditar(p)}
+                                            className="inline-flex items-center px-3 py-1.5 bg-[#8A9B6F] text-white text-sm rounded-md hover:opacity-90 transition-opacity"
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            onClick={() => handleExcluir(p._id)}
+                                            className="inline-flex items-center px-3 py-1.5 bg-red-500 text-white text-sm rounded-md hover:opacity-90 transition-opacity"
+                                        >
+                                            Excluir
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
-
-// Estilos simples para o formulário
-const formStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    maxWidth: '500px'
-};
 
 export default GerenciarProdutos;

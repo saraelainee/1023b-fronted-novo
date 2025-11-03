@@ -1,53 +1,86 @@
+.root{
+    --bg: #F3F4FD; /* claro */
+    --primary: #8A9B6F; /* verde principal */
+    --dark: #344733; /* texto escuro */
+    --accent: #B99375; /* acento */
+}
+
+header {
+  position: fixed; /* Fixes the element relative to the viewport */
+  top: 0; /* Positions the element at the top edge of the viewport */
+  left: 0; /* Positions the element at the left edge of the viewport */
+  width: 100%; /* Ensures the header spans the full width of the viewport */
+  z-index: 999; /* Places the header above other content */
+  /* Add other styles like background-color, padding, box-shadow as needed */
+  background-color: #ffffff; /* Example background color */
+  padding: 1rem; /* Example padding */
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5); /* Example shadow */
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: #333;
-    color: white;
+    padding: 1rem 1.5rem;
+    background-color: var(--bg);
+    color: var(--dark);
+    box-shadow: 0 2px 6px rgba(52,71,51,0.06);
 }
 .navbar-logo a {
-    color: white;
+    color: var(--dark);
     text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 .navbar-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 .navbar-links a {
-    color: white;
+    color: var(--dark);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
 }
 .navbar-links a:hover {
-    text-decoration: underline;
+    background-color: rgba(138,155,111,0.08);
 }
 .navbar-links .admin-link {
-    color: #a1801d;  
-    font-weight: bold;
+    color: var(--accent);
+    font-weight: 700;
 }
- .navbar-user {
-     display: flex;
-     align-items: center;
-     gap: 1rem;
- }
- .user-info {
-     font-size: 0.9rem;
- }
- .logout-button, .login-button {
-     padding: 0.5rem 1rem;
-     background-color: #971208;
-     color: white;
-     border: none;
-     border-radius: 4px;
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.user-info {
+    font-size: 0.95rem;
+    color: var(--dark);
+}
+.logout-button, .login-button {
+    padding: 0.45rem 0.9rem;
+    background-color: #344733;
+    color: white;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
- }
- .login-button {
-     background-color: #0d2e0e;
-     text-decoration: none;
-}.logout-button:hover {
-     background-color: #920707;
- }
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.logout-button:hover {
+    background-color: #6f8560; /* tom mais escuro do verde */
+}
+
+@media (max-width: 640px) {
+    .navbar { padding: 0.75rem 1rem; }
+    .navbar-links { gap: 0.6rem; }
+    .navbar-logo a { font-size: 1.05rem; }
+}
 

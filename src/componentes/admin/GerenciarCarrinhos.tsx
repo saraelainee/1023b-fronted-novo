@@ -45,37 +45,69 @@ function GerenciarCarrinhos() {
     }
 
     return (
-        <div>
-            <h3>Gerenciar Carrinhos de Usuários</h3>
-            <table style={{ width: '100%' }}>
-                <thead>
-                    <tr>
-                        <th>Dono do Carrinho</th>
-                        <th>Email do Dono</th>
-                        <th>Qtd. Itens</th>
-                        <th>Total</th>
-                        <th>Última Atualização</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                {/* TAREFA SARA: Lista os carrinhos */}
-                <tbody>
-                    {carrinhos.map(cart => (
-                        <tr key={cart._id}>
-                            {/* Verifica se o usuário ainda existe */}
-                            <td>{cart.usuario ? cart.usuario.nome : '[Usuário Deletado]'}</td>
-                            <td>{cart.usuario ? cart.usuario.email : 'N/A'}</td>
-                            <td>{cart.quantidadeItens}</td>
-                            <td>R$ {cart.total.toFixed(2)}</td>
-                            <td>{new Date(cart.dataAtualizacao).toLocaleString('pt-BR')}</td>
-                            <td>
-                                {/* TAREFA SARA: Botão Excluir */}
-                                <button onClick={() => handleExcluir(cart._id)}>Excluir Carrinho</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="space-y-6">
+            {/* Cabeçalho da Seção */}
+            <div className="flex justify-between items-center">
+                <div>
+                    <h3 className="text-xl font-semibold text-[#344733]">Gerenciar Carrinhos de Usuários</h3>
+                    <p className="text-sm text-[#8A9B6F] mt-1">
+                        Visualize e gerencie os carrinhos ativos no sistema
+                    </p>
+                </div>
+            </div>
+
+            {/* Card da Tabela */}
+            <div className="bg-white rounded-lg shadow-sm border border-[#B99375]/10 p-6">
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="border-b border-[#B99375]/10">
+                                <th className="text-left py-3 px-4 text-[#344733] font-semibold">Dono do Carrinho</th>
+                                <th className="text-left py-3 px-4 text-[#344733] font-semibold">Email do Dono</th>
+                                <th className="text-center py-3 px-4 text-[#344733] font-semibold">Qtd. Itens</th>
+                                <th className="text-right py-3 px-4 text-[#344733] font-semibold">Total</th>
+                                <th className="text-left py-3 px-4 text-[#344733] font-semibold">Última Atualização</th>
+                                <th className="text-right py-3 px-4 text-[#344733] font-semibold">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {carrinhos.map(cart => (
+                                <tr key={cart._id} className="border-b border-[#B99375]/10 hover:bg-[#F3F4FD]/50 transition-colors">
+                                    <td className="py-3 px-4">
+                                        {cart.usuario ? (
+                                            <span className="font-medium text-[#344733]">{cart.usuario.nome}</span>
+                                        ) : (
+                                            <span className="text-red-500 text-sm">[Usuário Deletado]</span>
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4 text-[#8A9B6F]">
+                                        {cart.usuario ? cart.usuario.email : 'N/A'}
+                                    </td>
+                                    <td className="py-3 px-4 text-center">
+                                        <span className="inline-flex items-center justify-center min-w-[24px] h-6 px-2 bg-[#8A9B6F]/10 rounded-full text-[#344733]">
+                                            {cart.quantidadeItens}
+                                        </span>
+                                    </td>
+                                    <td className="py-3 px-4 text-right font-medium text-[#344733]">
+                                        R$ {cart.total.toFixed(2)}
+                                    </td>
+                                    <td className="py-3 px-4 text-sm text-[#8A9B6F]">
+                                        {new Date(cart.dataAtualizacao).toLocaleString('pt-BR')}
+                                    </td>
+                                    <td className="py-3 px-4 text-right">
+                                        <button
+                                            onClick={() => handleExcluir(cart._id)}
+                                            className="inline-flex items-center px-3 py-1.5 bg-red-500 text-white text-sm rounded-md hover:opacity-90 transition-opacity"
+                                        >
+                                            Excluir Carrinho
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }

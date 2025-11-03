@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import api from "../../api/api";
 import { jwtDecode } from "jwt-decode"; // TAREFA VÂNIA: Importa o decoder
 
@@ -57,18 +57,46 @@ function Login() {
 
     return (
         <>
-            <h1>Login</h1>
-            {/* TAREFA SARA: Exibe a mensagem de erro */}
-            {mensagem && <p style={{ color: 'red' }}>{mensagem}</p>}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
-                <input type="text" name="email" id="email" />
-                <br/>
-                <label htmlFor="senha">Senha:</label>
-                <input type="password" name="senha" id="senha" />
-                <br/>
-                <button type="submit">Entrar</button>
-            </form>
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#F3F4FD] to-white p-6">
+                <div className="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-lg rounded-xl p-6">
+                    <h1 className="text-2xl font-semibold mb-4 text-[#344733]">Entrar</h1>
+
+                    {/* Exibe a mensagem de erro/aviso */}
+                    {mensagem && <div className="mb-4 text-sm text-red-600">{mensagem}</div>}
+
+                    <form onSubmit={handleSubmit} className="space-y-3">
+                        <input
+                            name="email"
+                            type="text"
+                            id="email"
+                            required
+                            placeholder="exemplo@ex.com"
+                                className="w-full px-4 py-2 border border-[#B99375] rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F]"
+                        />
+                        <input
+                            name="senha"
+                            type="password"
+                            id="senha"
+                            required
+                            placeholder="Senha"
+                                className="w-full px-4 py-2 border border-[#B99375] rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F]"
+                        />
+
+                        <div className="flex gap-3 items-center">
+                            <button
+                                type="submit"
+                                className="flex-1 bg-[#8A9B6F] text-white py-2 rounded-md hover:opacity-95 transition disabled:opacity-60 cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+                            >
+                                Entrar
+                            </button>
+                        </div>
+                    </form>
+
+                    <p className="mt-4 text-sm text-[#344733]">
+                        Não possui conta? <Link to="/registro" className="text-[#8A9B6F] hover:underline">Crie uma</Link>
+                    </p>
+                </div>
+            </div>
         </>
     )
 }

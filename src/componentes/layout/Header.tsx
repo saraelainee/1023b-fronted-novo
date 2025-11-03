@@ -20,7 +20,7 @@ function Header() {
     }
 
     return (
-        <header className="navbar">
+        <header className="navbar bg-white/80 backdrop-blur-sm shadow-md px-6 py-4 flex items-center justify-between position-fixed w-full top-0 z-10">
             <div className="navbar-logo">
                 <Link to="/">Minha Livrariazinha</Link>
             </div>
