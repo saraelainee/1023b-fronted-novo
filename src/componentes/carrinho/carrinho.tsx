@@ -86,7 +86,7 @@ function Carrinho() {
     // Se o carrinho ainda não carregou
     if (!carrinho) {
         console.log(carrinho)
-        return <h1>Carregando seu carrinho...</h1>
+        return <h1 className="mt-20">Carregando seu carrinho...</h1>
     }
 
     const itens = carrinho.itens ?? [];
@@ -94,12 +94,12 @@ function Carrinho() {
 
     // Se o carrinho estiver vazio
     if (itens.length === 0) {
-        return <h1>Seu carrinho está vazio.</h1>
+        return <h1 className="mt-20">Seu carrinho está vazio.</h1>
     }
 
     return (
         <>
-            <h1>Carrinho de Compras</h1>
+            <h1 className="mt-20">Carrinho de Compras</h1>
 
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
