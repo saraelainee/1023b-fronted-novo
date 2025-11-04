@@ -156,7 +156,7 @@ function GerenciarProdutos() {
                     <div className="md:col-span-2 flex gap-3">
                         <button
                             type="submit"
-                            className="flex-1 bg-gradient-to-r from-[#8A9B6F] to-[#B99375] text-white py-2 px-4 rounded-md hover:opacity-90 transition-all duration-200"
+                            className="flex-1 bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white py-2 px-4 rounded-md hover:opacity-90 transition-all duration-200"
                         >
                             {produtoEditando ? 'Salvar Alterações' : 'Cadastrar Produto'}
                         </button>

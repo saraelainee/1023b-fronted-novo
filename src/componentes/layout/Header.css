@@ -44,11 +44,10 @@ header {
     border-radius: 6px;
 }
 .navbar-links a:hover {
-    background-color: rgba(138,155,111,0.08);
+    background-color: rgb(170, 201, 176);
 }
 .navbar-links .admin-link {
     color: var(--accent);
-    font-weight: 700;
 }
 .navbar-user {
     display: flex;

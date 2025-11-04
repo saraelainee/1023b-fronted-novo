@@ -51,8 +51,8 @@ function Admin() {
                     <button 
                         className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 ${
                             view === 'produtos' 
-                            ? 'bg-gradient-to-r from-[#8A9B6F] to-[#B99375] text-white shadow-lg scale-105' 
-                            : 'bg-white text-[#344733] border border-[#B99375] hover:bg-[#F3F4FD] hover:scale-105'
+                            ? 'bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white shadow-lg scale-105' 
+                            : 'bg-white text-[#344733] border border-[#8A9B6F] hover:bg-[#F3F4FD] hover:scale-105'
                         }`}
                         onClick={() => setView('produtos')}
                     >
@@ -62,8 +62,8 @@ function Admin() {
                     <button 
                         className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 ${
                             view === 'usuarios' 
-                            ? 'bg-gradient-to-r from-[#8A9B6F] to-[#B99375] text-white shadow-lg scale-105' 
-                            : 'bg-white text-[#344733] border border-[#B99375] hover:bg-[#F3F4FD] hover:scale-105'
+                            ? 'bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white shadow-lg scale-105' 
+                            : 'bg-white text-[#344733] border border-[#8A9B6F] hover:bg-[#F3F4FD] hover:scale-105'
                         }`}
                         onClick={() => setView('usuarios')}
                     >
@@ -73,8 +73,8 @@ function Admin() {
                     <button 
                         className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 ${
                             view === 'carrinhos' 
-                            ? 'bg-gradient-to-r from-[#8A9B6F] to-[#B99375] text-white shadow-lg scale-105' 
-                            : 'bg-white text-[#344733] border border-[#B99375] hover:bg-[#F3F4FD] hover:scale-105'
+                            ? 'bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white shadow-lg scale-105' 
+                            : 'bg-white text-[#344733] border border-[#8A9B6F] hover:bg-[#F3F4FD] hover:scale-105'
                         }`}
                         onClick={() => setView('carrinhos')}
                     >
