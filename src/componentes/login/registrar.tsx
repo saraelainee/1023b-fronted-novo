@@ -19,10 +19,11 @@ function Registrar() {
             const payload = { nome, email, idade: Number(idade), senha };
             const resposta = await api.post("/adicionarUsuario", payload);
             if (resposta.status === 201) {
+                alert("Conta criada com sucesso! Faça login para continuar.");
                 navigate("/login");
             }
         } catch (err: any) {
-            const msg = err?.response?.data?.mensagem || err?.mensagem || "Erro desconhecido!"
+            const msg = err?.response?.data?.message || err.message
             console.log(err);
             setError(msg);
         } finally {
