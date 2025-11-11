@@ -89,7 +89,7 @@ function Produtos() {
                                     <span className="text-xl font-bold text-[#344733]">R$ {produto.preco.toFixed(2)}</span>
                                     <button
                                         onClick={() => adicionarAoCarrinho(produto._id)}
-                                        className="bg-[#8A9B6F] text-white px-3 py-2 rounded-md hover:opacity-90"
+                                        className="bg-[#8A9B6F] text-white px-3 py-2 rounded-md hover:opacity-90 cursor-pointer"
                                     >
                                         Adicionar
                                     </button>

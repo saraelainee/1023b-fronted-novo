@@ -50,7 +50,7 @@ function Admin() {
                 <nav className="flex gap-4 mb-8 pb-4 border-b border-[#B99375]/20">
                     {/* Botão Produtos */}
                     <button 
-                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 ${
+                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 cursor-pointer ${
                             view === 'produtos' 
                             ? 'bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white shadow-lg scale-105' 
                             : 'bg-white text-[#344733] border border-[#8A9B6F] hover:bg-[#F3F4FD] hover:scale-105'
@@ -62,7 +62,7 @@ function Admin() {
                     </button>
                     {/* Botão Usuários */}
                     <button 
-                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 ${
+                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 cursor-pointer ${
                             view === 'usuarios' 
                             ? 'bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white shadow-lg scale-105' 
                             : 'bg-white text-[#344733] border border-[#8A9B6F] hover:bg-[#F3F4FD] hover:scale-105'
@@ -74,7 +74,7 @@ function Admin() {
                     </button>
                     {/* Botão Carrinhos */}
                     <button 
-                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 ${
+                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 cursor-pointer ${
                             view === 'carrinhos' 
                             ? 'bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white shadow-lg scale-105' 
                             : 'bg-white text-[#344733] border border-[#8A9B6F] hover:bg-[#F3F4FD] hover:scale-105'
@@ -86,7 +86,7 @@ function Admin() {
                     </button>
                     {/* Novo Botão Analytics */}
                     <button 
-                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 ${
+                        className={`flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-200 cursor-pointer ${
                             view === 'analytics' 
                             ? 'bg-gradient-to-r from-[#8A9B6F] to-[#8A9B6F] text-white shadow-lg scale-105' 
                             : 'bg-white text-[#344733] border border-[#8A9B6F] hover:bg-[#F3F4FD] hover:scale-105'
