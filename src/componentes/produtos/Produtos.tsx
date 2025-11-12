@@ -1,6 +1,7 @@
 // ARQUIVO: src/componentes/produtos/Produtos.tsx (COM A CORREÇÃO)
 import React, { useState, useEffect } from 'react'; // <-- React.FormEvent foi adicionado implicitamente
 import api from '../../api/api';
+import { useNavigate } from 'react-router-dom';
 // (Importe o seu CSS se desejar, ex: './Produtos.css')
 
 // Define o tipo do Produto (IMPORTANTE: Adicionamos 'categoria')
@@ -20,6 +21,8 @@ type ItemCarrinhoType = {
 }
 
 function Produtos() {
+    
+    const navigate = useNavigate();
     // Estado para guardar TODOS os produtos vindos da API
     const [produtos, setProdutos] = useState<ProdutoType[]>([]);
 
@@ -52,6 +55,10 @@ function Produtos() {
             .catch((error) => {
                 console.error('Erro ao adicionar item:', error);
                 alert("Erro ao adicionar produto: " + (error?.response?.data?.mensagem || "Tente novamente."));
+                if (error.response && error.response.status === 401) {
+                    alert("Por favor, faça login para adicionar produtos ao carrinho.");
+                    navigate('/login');
+                }
             });
     }
 
