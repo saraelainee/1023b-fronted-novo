@@ -32,7 +32,13 @@ function Produtos() {
     // Consumir a rota /produtos com axios
     useEffect(() => {
         api.get("/produtos")
-            .then((response) => setProdutos(response.data))
+            .then((response) => {
+                const data: any = response.data;
+                const lista = Array.isArray(data)
+                    ? data
+                    : (Array.isArray(data?.produtos) ? data.produtos : []);
+                setProdutos(lista);
+            })
             .catch((error) => {
                 console.error('Erro ao buscar produtos:', error);
                 alert("Erro ao buscar produtos. Tente novamente.");

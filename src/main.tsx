@@ -11,6 +11,7 @@ import Produtos from './componentes/produtos/Produtos.tsx'
 import Carrinho from './componentes/carrinho/carrinho.tsx' 
 import Admin from './componentes/admin/Admin.tsx'       
 import Registrar from './componentes/login/registrar.tsx'
+import Checkout from './componentes/carrinho/chekout.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path='/registro' element={<Registrar />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
         
       </Routes>

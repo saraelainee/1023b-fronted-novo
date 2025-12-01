@@ -186,6 +186,12 @@ function Carrinho() {
                                 >
                                     Excluir Carrinho
                                 </button>
+                                <button
+                                    onClick={() => navigate('/checkout')} 
+                                    className="ml-4 px-6 py-2 bg-[#8A9B6F] text-white rounded-md font-bold hover:bg-[#344733] transition-colors"
+                                >
+                                    Finalizar Compra
+                                </button>
                             </div>
                             <div className="text-right">
                                 <span className="text-sm text-[#8A9B6F]">Total do Carrinho</span>
