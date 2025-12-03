@@ -27,7 +27,7 @@ export default function Checkout() {
     }
 
     return (
-        <div id="checkout" className="w-full max-w-4xl mx-auto p-4">
+        <div id="checkout" className="w-full max-w-4xl mx-auto p-4 mt-10">
             <h1 className="text-2xl font-bold mb-4 text-[#344733]">Finalizar Compra</h1>
             <EmbeddedCheckoutProvider
                 stripe={stripePromise}
