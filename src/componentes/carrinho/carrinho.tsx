@@ -7,6 +7,8 @@ type ItemType = {
     nome: string;
     quantidade: number;
     precoUnitario: number;
+    precoAntigo?: number; // Novo
+    indisponivel?: boolean; // Novo
 }
 type CarrinhoType = {
     _id: string;
@@ -46,7 +48,6 @@ function Carrinho() {
             quantidade: novaQuantidade
         })
             .then(() => {
-                alert("Quantidade atualizada!");
                 fetchCarrinho();
             })
             .catch(error => {
@@ -99,6 +100,8 @@ function Carrinho() {
     const itens = carrinho.itens ?? [];
     const total = carrinho.total ?? 0;
 
+    const temItemIndisponivel = itens.some(item => item.indisponivel);
+
     // Se o carrinho estiver vazio
     if (itens.length === 0) {
         return (
@@ -141,26 +144,50 @@ function Carrinho() {
                             </thead>
                             <tbody>
                                 {itens.map(item => (
-                                    <tr key={item.produtoId} className="border-b border-[#B99375]/10 hover:bg-[#F3F4FD]/50 transition-colors">
+                                    <tr key={item.produtoId} className={`border-b border-[#B99375]/10 transition-colors ${item.indisponivel ? 'bg-red-50' : 'hover:bg-[#F3F4FD]/50'}`}>
                                         <td className="py-4 px-4">
-                                            <span className="font-medium text-[#344733]">{item.nome}</span>
-                                        </td>
-                                        <td className="py-4 px-4 text-right text-[#8A9B6F]">
-                                            R$ {item.precoUnitario.toFixed(2)}
-                                        </td>
-                                        <td className="py-4 px-4">
-                                            <div className="flex items-center justify-center">
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    value={item.quantidade}
-                                                    onChange={(e) => handleAlterarQuantidade(item.produtoId, parseInt(e.target.value))}
-                                                    className="w-16 px-2 py-1 text-center border border-[#B99375]/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F] focus:border-transparent"
-                                                />
+                                            <div className="flex flex-col">
+                                                <span className={`font-medium ${item.indisponivel ? 'text-red-500 line-through' : 'text-[#344733]'}`}>
+                                                    {item.nome}
+                                                </span>
+                                                {/* AVISO DE INDISPONÍVEL */}
+                                                {item.indisponivel && (
+                                                    <span className="text-xs text-red-600 font-bold mt-1">
+                                                        PRODUTO INDISPONÍVEL (Remova para continuar)
+                                                    </span>
+                                                )}
                                             </div>
                                         </td>
+                                        <td className="py-4 px-4 text-right">
+                                            <div className="flex flex-col items-end">
+                                                {/* LÓGICA DE PREÇO ATUALIZADO */}
+                                                {(!item.indisponivel && item.precoAntigo && item.precoAntigo !== item.precoUnitario) && (
+                                                    <span className="text-xs text-gray-400 line-through">
+                                                        R$ {item.precoAntigo.toFixed(2)}
+                                                    </span>
+                                                )}
+                                                <span className={`text-[#8A9B6F] ${item.indisponivel ? 'opacity-50' : ''}`}>
+                                                    R$ {item.precoUnitario.toFixed(2)}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td className="py-4 px-4">
+                                            {item.indisponivel ? (
+                                                <div className="text-center text-gray-400">-</div>
+                                            ) : (
+                                                <div className="flex items-center justify-center">
+                                                    <input
+                                                        type="number"
+                                                        min="0"
+                                                        value={item.quantidade}
+                                                        onChange={(e) => handleAlterarQuantidade(item.produtoId, parseInt(e.target.value))}
+                                                        className="w-16 px-2 py-1 text-center border border-[#B99375]/20 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8A9B6F]"
+                                                    />
+                                                </div>
+                                            )}
+                                        </td>
                                         <td className="py-4 px-4 text-right font-medium text-[#344733]">
-                                            R$ {(item.precoUnitario * item.quantidade).toFixed(2)}
+                                            {item.indisponivel ? '---' : `R$ ${(item.precoUnitario * item.quantidade).toFixed(2)}`}
                                         </td>
                                         <td className="py-4 px-4 text-right">
                                             <button
@@ -187,8 +214,13 @@ function Carrinho() {
                                     Excluir Carrinho
                                 </button>
                                 <button
-                                    onClick={() => navigate('/checkout')} 
-                                    className="ml-4 px-6 py-2 bg-[#8A9B6F] text-white rounded-md font-bold hover:bg-[#344733] transition-colors"
+                                    onClick={() => navigate('/checkout')}
+                                    disabled={temItemIndisponivel} // BLOQUEIA SE TIVER ITEM RUIM
+                                    className={`ml-4 px-6 py-2 text-white rounded-md font-bold transition-colors ${temItemIndisponivel
+                                            ? 'bg-gray-400 cursor-not-allowed'
+                                            : 'bg-[#8A9B6F] hover:bg-[#344733]'
+                                        }`}
+                                    title={temItemIndisponivel ? "Remova os itens indisponíveis para continuar" : ""}
                                 >
                                     Finalizar Compra
                                 </button>
