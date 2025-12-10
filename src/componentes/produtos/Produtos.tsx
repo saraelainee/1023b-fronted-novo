@@ -1,17 +1,16 @@
-// ARQUIVO: src/componentes/produtos/Produtos.tsx (COM A CORREÇÃO)
-import React, { useState, useEffect } from 'react'; // <-- React.FormEvent foi adicionado implicitamente
+// ARQUIVO: src/componentes/produtos/Produtos.tsx (CORRIGIDO)
+import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
-// (Importe o seu CSS se desejar, ex: './Produtos.css')
 
-// Define o tipo do Produto (IMPORTANTE: Adicionamos 'categoria')
+// Define o tipo do Produto
 type ProdutoType = {
     _id: string,
     nome: string,
     preco: number,
     urlfoto: string,
     descricao: string,
-    categoria: string; // Campo novo que o backend agora suporta
+    categoria: string;
 }
 
 // Define o tipo para o item do carrinho
@@ -53,17 +52,34 @@ function Produtos() {
         return nomeProduto.includes(buscaLower) || categoriaProduto.includes(buscaLower);
     });
 
-    // Função para adicionar ao carrinho (Usuário Logado)
+    // --- A CORREÇÃO ESTÁ AQUI EMBAIXO ---
     function adicionarAoCarrinho(produtoId: string) {
+        
+        // 1. Verifica se o usuário tem o token salvo (está logado?)
+        const token = localStorage.getItem('token'); 
+
+        // 2. Se NÃO tiver token, avisa e manda para o Login, SEM chamar a API
+        if (!token) {
+            alert("Você precisa estar logado para adicionar produtos ao carrinho!");
+            navigate('/login'); // Redireciona para a tela de login
+            return; // Para a execução aqui
+        }
+
+        // 3. Se tiver token, executa a lógica normal
         const item: ItemCarrinhoType = { produtoId: produtoId, quantidade: 1 };
+        
         api.post('/carrinho/adicionarItem', item)
             .then(() => alert("Produto adicionado ao carrinho!"))
             .catch((error) => {
                 console.error('Erro ao adicionar item:', error);
-                alert("Erro ao adicionar produto: " + (error?.response?.data?.mensagem || "Tente novamente."));
+                
+                // Tratamento caso o token tenha expirado (Erro 401)
                 if (error.response && error.response.status === 401) {
-                    alert("Por favor, faça login para adicionar produtos ao carrinho.");
+                    alert("Sua sessão expirou. Por favor, faça login novamente.");
+                    localStorage.removeItem('token'); // Limpa o token inválido
                     navigate('/login');
+                } else {
+                    alert("Erro ao adicionar produto: " + (error?.response?.data?.mensagem || "Tente novamente."));
                 }
             });
     }
